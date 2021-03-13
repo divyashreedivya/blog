@@ -14,6 +14,7 @@ const PostCard = (props)=>{
                 </h2>
                 <h3>{post.author}</h3>
                 <p>{post.content}</p>
+                <p>{post.createdAt}</p>
             </div>
         </div>
     )

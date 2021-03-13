@@ -6,6 +6,9 @@ import CreatePost from './components/createPost';
 import PostList from './components/postsList';
 import PostDetails from './components/postDetails';
 import UpdatePost from './components/updatePost';
+import CreateComment from './components/createComment';
+import CommentsList from './components/commentsList';
+import UpdateComment from './components/updateComment';
 
 class App extends Component{
   render(){
@@ -16,6 +19,9 @@ class App extends Component{
           <Route path='/create-post' component={CreatePost}/>
           <Route path='/edit-post/:id' component={UpdatePost}/>
           <Route path='/show-post/:id' component={PostDetails}/>
+          <Route path='/show-post/:id/show-comments' component={CommentsList}/>
+          <Route path='/show-post/:id/add-comment' component={CreateComment}/>
+          <Route path='/show-post/:id/edit-comment/:commentId' component={UpdateComment}/>
         </div>
       </Router>
     );

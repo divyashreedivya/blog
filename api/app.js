@@ -4,6 +4,7 @@ const app = express();
 var cors = require('cors');
 
 const postRouter = require('./routes/posts');
+const commentRouter = require('./routes/comments');
 
 //connect database
 connectDB();
@@ -18,6 +19,7 @@ app.get('/',(req,res)=>{ res.send("hello world!");});
 
 //use routes
 app.use('/api/posts',postRouter);
+app.use('/api/posts',commentRouter);
 
 const port = process.env.PORT || 8082;
 

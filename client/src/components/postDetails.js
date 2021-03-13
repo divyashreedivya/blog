@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import '../App.css';
 import {Link} from 'react-router-dom';
+import CommentsList from './commentsList';
 
 class PostDetails extends Component{
     constructor(props){
@@ -91,8 +92,18 @@ class PostDetails extends Component{
                              <br/>
                          </div>
                      </div>
-                 </div>
+                     <div className="row">
+                        <div className="col-md-12">
+                            <br/>
+                            <h1 className="display-4 text-center">
+                            <Link to={`/show-post/${post._id}/show-comments`} className="display-4 text-center">Comments</Link>
+                            </h1>
+                        </div>
+
+                 {/* <CommentsList></CommentsList> */}
              </div>
+                 </div></div>
+
         );
     }
 }

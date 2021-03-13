@@ -64,13 +64,20 @@ class CreatePost extends Component{
                                 </div>
                                 <br></br>
                                 <div className='form-group'>
-                                    <input 
+                                   {/* <input 
                                     type="text" 
                                     placeholder="Content" 
                                     name="content"
                                     className='form-control'
                                     value={this.state.content}
-                                    onChange = {this.onChange}/>
+                                   onChange = {this.onChange}/>*/}
+                                    <textarea 
+                                    type="text" 
+                                    placeholder="Content" 
+                                    name="content"
+                                    className='form-control'
+                                    value={this.state.content}
+                                   onChange = {this.onChange}></textarea>
                                 </div>
                                 <br></br>
                                 <div className='form-group'>

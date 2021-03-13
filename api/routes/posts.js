@@ -31,7 +31,7 @@ router.put('/:id',(req,res)=>{
 
 router.delete('/:id',(req,res)=>{
     Post.findByIdAndRemove(req.params.id,req.body)
-    .then(post => res.json({msg:'Post delted successfully'}))
+    .then(post => res.json({msg:'Post deleted successfully'}))
     .catch(err => res.status(404).json({error: 'No such post'}));
 });
 
