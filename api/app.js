@@ -5,6 +5,7 @@ var cors = require('cors');
 
 const postRouter = require('./routes/posts');
 const commentRouter = require('./routes/comments');
+const userRouter = require('./routes/auth');
 
 //connect database
 connectDB();
@@ -18,6 +19,7 @@ app.use(express.json({ extended: false }));
 app.get('/',(req,res)=>{ res.send("hello world!");});
 
 //use routes
+app.use('/api/users',userRouter);
 app.use('/api/posts',postRouter);
 app.use('/api/posts',commentRouter);
 
