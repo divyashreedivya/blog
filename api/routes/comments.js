@@ -51,7 +51,9 @@ router.put('/:id/comments/:commentId',authenticate.verifyUser, (req,res)=>{
 });
 
 router.delete('/:id/comments/:commentId',authenticate.verifyUser, (req,res)=>{
-    if(req.body.author == req.user._id){
+    // console.dir(req.params.commentId);
+    //  req.body.post = req.params.id;
+    if(req.body.author === req.user._id){
         Comment.findByIdAndRemove(req.params.commentId,req.body)
         .then(comment => {res.json({msg:'Comment deleted successfully'})})
         .catch(err =>{ res.status(404).json({error:'No such comment found'})});
@@ -59,7 +61,6 @@ router.delete('/:id/comments/:commentId',authenticate.verifyUser, (req,res)=>{
     else{
         res.status(404).json({error:'Unable to delete(Wrong user)'});
     }
-
 });
 
 

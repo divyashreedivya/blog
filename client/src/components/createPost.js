@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import '../App.css';
+import authHeader from '../auth/header';
+import AuthService from '../auth/service';
+
 
 class CreatePost extends Component{
     constructor(){
@@ -9,8 +12,15 @@ class CreatePost extends Component{
         this.state = {
             title:'',
             content:'',
-            author:'',
+            author:AuthService.getCurrentUser(),
         };
+    }
+    componentDidMount(){
+        this.setState({
+            author: AuthService.getCurrentUser()
+        });
+        //console.log("getuser:"+AuthService.getCurrentUser());
+        console.log("author:"+ this.state.author);
     }
     onChange = e =>{
         this.setState({[e.target.name]: e.target.value});
@@ -22,12 +32,11 @@ class CreatePost extends Component{
             content: this.state.content,
             author: this.state.author
         };
-        axios.post('http://localhost:8082/api/posts',data)
+        axios.post('http://localhost:8082/api/posts',data,{ headers: authHeader(),params:{"secret_token":this.state.author} })
         .then(res=>{
             this.setState({
                 title:'',
                 content:'',
-                author:'',
             })
             this.props.history.push('/');
         })
@@ -64,13 +73,6 @@ class CreatePost extends Component{
                                 </div>
                                 <br></br>
                                 <div className='form-group'>
-                                   {/* <input 
-                                    type="text" 
-                                    placeholder="Content" 
-                                    name="content"
-                                    className='form-control'
-                                    value={this.state.content}
-                                   onChange = {this.onChange}/>*/}
                                     <textarea 
                                     type="text" 
                                     placeholder="Content" 
@@ -80,7 +82,7 @@ class CreatePost extends Component{
                                    onChange = {this.onChange}></textarea>
                                 </div>
                                 <br></br>
-                                <div className='form-group'>
+                                {/* <div className='form-group'>
                                     <input 
                                     type="text" 
                                     placeholder="Author" 
@@ -88,7 +90,7 @@ class CreatePost extends Component{
                                     className='form-control'
                                     value={this.state.author}
                                     onChange = {this.onChange}/>
-                                </div>
+                                </div> */}
                                 <br></br>
                                 <input type="submit" className="btn btn-outline-warning btn-block mt-4"/>
                             </form>

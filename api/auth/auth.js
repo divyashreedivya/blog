@@ -3,6 +3,7 @@ const localStrategy = require('passport-local').Strategy;
 const User = require('../models/user');
 const JWTstrategy = require('passport-jwt').Strategy;
 const ExtractJWT = require('passport-jwt').ExtractJwt;
+const jwt = require('jsonwebtoken');
 
 passport.use(
     'signup',
@@ -65,3 +66,15 @@ passport.use(new JWTstrategy(
 ));
 
 exports.verifyUser = passport.authenticate('jwt', {session:false});  
+
+exports.verifyToken = (token)=>{
+    jwt.verify(token,'TOP_SECRET',(err,decoded)=>{
+        if(err){
+            return null;
+        }
+        else{
+           console.log(decoded.user._id);
+            return decoded.user._id;
+        }
+    })
+}

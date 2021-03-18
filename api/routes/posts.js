@@ -26,15 +26,17 @@ router.post('/',authenticate.verifyUser, (req,res)=>{
 });
 
 router.put('/:id',authenticate.verifyUser, (req,res)=>{
-    if((req.body.author) == (req.user._id)){
-        Post.findByIdAndUpdate(req.params.id,req.body)
-        .then(post => res.json({msg:'Updated successfully!'}))
-        .catch( err => res.status(400).json({error: 'Unable to update'}));
-    }
-    else{
-        res.status(400).json({error: 'Unable to update(Wrong user)'});
-    }
-
+        if(req.body.author === req.user._id){
+        Post.findOneAndUpdate({_id:req.params.id},req.body)
+        .then(post => {
+                res.json({msg:'Updated successfully!'});
+        })
+        .catch( err => {
+            console.log("Unable to update");
+            res.status(400).json({error: 'Unable to update'})});}
+        else{
+                res.status(400).json({error: 'Unable to update(Wrong user)'});
+            }
 });
 
 router.delete('/:id',authenticate.verifyUser, (req,res)=>{

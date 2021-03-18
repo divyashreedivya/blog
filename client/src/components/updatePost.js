@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import '../App.css';
+import authHeader from '../auth/header';
+import AuthService from '../auth/service';
 
 class UpdatePost extends Component{
     constructor(props){
@@ -38,7 +40,8 @@ class UpdatePost extends Component{
             content: this.state.content,
             author: this.state.author
         };
-        axios.put('http://localhost:8082/api/posts/'+this.props.match.params.id,data)
+        axios.put('http://localhost:8082/api/posts/'+this.props.match.params.id,data,
+        { headers: authHeader(),params:{"secret_token":AuthService.getCurrentUser()} })
         .then(res =>{
             this.props.history.push('/show-post/'+this.props.match.params.id);
         })
@@ -85,7 +88,7 @@ class UpdatePost extends Component{
                                     onChange = {this.onChange}></textarea>
                                 </div>
                                 <br></br>
-                                <div className='form-group'>
+                                {/* <div className='form-group'>
                                     <input 
                                     type="text" 
                                     placeholder="Author" 
@@ -93,7 +96,7 @@ class UpdatePost extends Component{
                                     className='form-control'
                                     value={this.state.author}
                                     onChange = {this.onChange}/>
-                                </div>
+                                </div> */}
                                 <br></br>
                                 <input type="submit" className="btn btn-outline-warning btn-block mt-4"/>
                             </form>

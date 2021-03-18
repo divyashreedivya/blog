@@ -2,7 +2,9 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import '../App.css';
 import {Link} from 'react-router-dom';
-import CommentsList from './commentsList';
+// import CommentsList from './commentsList';
+import authHeader from '../auth/header';
+import AuthService from '../auth/service';
 
 class PostDetails extends Component{
     constructor(props){
@@ -25,7 +27,10 @@ class PostDetails extends Component{
     };
 
     onDeleteClick(id) {
-        axios.delete('http://localhost:8082/api/posts/'+id)
+        axios.delete('http://localhost:8082/api/posts/'+id,{
+            headers: authHeader(),data:this.state.post,params:{"secret_token":AuthService.getCurrentUser()
+        } 
+       })
         .then(res =>{
             this.props.history.push("/");
         })

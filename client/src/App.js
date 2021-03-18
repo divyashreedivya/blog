@@ -9,12 +9,16 @@ import UpdatePost from './components/updatePost';
 import CreateComment from './components/createComment';
 import CommentsList from './components/commentsList';
 import UpdateComment from './components/updateComment';
+import Login from './components/login';
+import SignUp from './components/signup';
 
 class App extends Component{
   render(){
     return(
       <Router>
         <div>
+          <Route path='/login' component={Login}/>
+          <Route path='/signup' component={SignUp}/>
           <Route exact path='/' component={PostList}/>
           <Route path='/create-post' component={CreatePost}/>
           <Route path='/edit-post/:id' component={UpdatePost}/>

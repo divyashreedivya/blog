@@ -2,6 +2,8 @@ import React,{Component} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import '../App.css';
+import authHeader from '../auth/header';
+import AuthService from '../auth/service';
 
 // onDeleteClick(id){
 //     axios.delete(`http://localhost:8082/api/posts/${}`+id)
@@ -44,7 +46,15 @@ class CommentCard extends Component{
         };
     }
     onDeleteClick(id){
-    axios.delete(`http://localhost:8082/api/posts/${this.state.comment.post}/comments/${id}`)
+    const datadel = {
+        title:this.state.comment.title,
+        content:this.state.comment.content,
+        author:this.state.comment.author
+    };
+    console.dir(datadel);
+    axios.delete(`http://localhost:8082/api/posts/${this.state.comment.post}/comments/${id}`
+    ,{headers: authHeader(),data:datadel,params:{"secret_token":AuthService.getCurrentUser()}}
+    )
     .then(res =>{
         this.props.history.push(`/show-post/${this.state.comment.post}/show-comments`);
     })

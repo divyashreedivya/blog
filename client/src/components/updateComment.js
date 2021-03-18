@@ -2,6 +2,8 @@ import React,{Component} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import '../App.css';
+import authHeader from '../auth/header';
+import AuthService from '../auth/service';
 
 class UpdateComment extends Component{
     constructor(props){
@@ -37,7 +39,8 @@ class UpdateComment extends Component{
             content:this.state.content,
             author:this.state.author
         };
-        axios.put('http://localhost:8082/api/posts/'+this.props.match.params.id+'/comments/'+this.props.match.params.commentId,data)
+        axios.put('http://localhost:8082/api/posts/'+this.props.match.params.id+'/comments/'+this.props.match.params.commentId,
+        data,{ headers: authHeader(),params:{"secret_token":AuthService.getCurrentUser()} })
         .then(res=>{
             this.props.history.push(`/show-post/${this.props.match.params.id}/show-comments`);
         })
@@ -79,7 +82,7 @@ class UpdateComment extends Component{
                                    onChange={this.onChange}/>  
                                 </div>
                                 <br/><br/>     
-                                <div className="form-group">
+                                {/* <div className="form-group">
                                  <input 
                                    type="text"
                                    placeholder="Author"
@@ -88,7 +91,7 @@ class UpdateComment extends Component{
                                    value={this.state.author}
                                    onChange={this.onChange}/>
                                 </div>
-                                <br/><br/>
+                                <br/><br/> */}
                                 <input type="submit"  className="btn btn-outline-warning btn-block mt-4"/>
                             </form>
                         </div>

@@ -2,6 +2,8 @@ import React,{Component} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import '../App.css';
+import authHeader from '../auth/header';
+import AuthService from '../auth/service';
 
 class CreateComment extends Component{
     constructor(props){
@@ -12,7 +14,11 @@ class CreateComment extends Component{
             author:''
         };
     }
-
+    componentDidMount(){
+        this.setState({
+            author: AuthService.getCurrentUser()
+        });
+    }
     onChange = e =>{
         this.setState({[e.target.name]:e.target.value});
     };
@@ -23,12 +29,12 @@ class CreateComment extends Component{
             content:this.state.content,
             author:this.state.author
         };
-        axios.post('http://localhost:8082/api/posts/'+this.props.match.params.id+'/comments',data)
+        axios.post('http://localhost:8082/api/posts/'+this.props.match.params.id+'/comments',data
+        ,{ headers: authHeader(),params:{"secret_token":this.state.author} })
         .then(res=>{
             this.setState({
                 title:'',
-                content:'',
-                author:''
+                content:''
             });
             this.props.history.push(`/show-post/${this.props.match.params.id}/show-comments`);
         })
@@ -71,7 +77,7 @@ class CreateComment extends Component{
                                    onChange={this.onChange}/>  
                                 </div>
                                 <br/><br/>     
-                                <div className="form-group">
+                                {/* <div className="form-group">
                                  <input 
                                    type="text"
                                    placeholder="Author"
@@ -79,8 +85,8 @@ class CreateComment extends Component{
                                    className="form-control"
                                    value={this.state.author}
                                    onChange={this.onChange}/>
-                                </div>
-                                <br/><br/>
+                                </div> */}
+                                {/* <br/><br/> */}
                                 <input type="submit"  className="btn btn-outline-warning btn-block mt-4"/>
                             </form>
                         </div>

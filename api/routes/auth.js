@@ -29,7 +29,7 @@ router.post('/login',
                             if(error){
                                 return next(error);
                             }
-                            const body = {_id:user._id,email:user.email};
+                            const body = {_id:user._id.toString(),email:user.email.toString()};
                             const token = jwt.sign({user:body},'TOP_SECRET');
                             return res.json({token});
                         }
