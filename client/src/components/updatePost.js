@@ -27,7 +27,7 @@ class UpdatePost extends Component{
             this.setState({
                 title: res.data.title,
                 content: res.data.content,
-                author: res.data.author
+                author: res.data.author._id
             })  
         })
         .catch(err =>{

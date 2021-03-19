@@ -12,6 +12,7 @@ router.get('/:id/comments', (req,res)=>{
     Post.findById(req.params.id)
     .then(postItem => {
         Comment.find({post:req.params.id})
+        .populate("author","-password")
         .then(comments =>{ res.json(comments) })
         .catch(err => { res.status(404).json({nocommentsfound:'No comments'})});
     })
@@ -59,7 +60,7 @@ router.delete('/:id/comments/:commentId',authenticate.verifyUser, (req,res)=>{
         .catch(err =>{ res.status(404).json({error:'No such comment found'})});
     }
     else{
-        res.status(404).json({error:'Unable to delete(Wrong user)'});
+        res.status(400).json({error:'Unable to delete(Wrong user)'});
     }
 });
 

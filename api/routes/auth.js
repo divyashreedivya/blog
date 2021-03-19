@@ -20,6 +20,7 @@ router.post('/login',
             async (err,user,info)=>{
                 try{
                     if(err || !user){
+                        //console.dir(user);
                         const error = new Error('An error occured.');
                         return next(error);
                     }

@@ -10,11 +10,13 @@ passport.use(
     new localStrategy(
         {
             usernameField:'email',
-            passwordField:'password'
+            passwordField:'password',
+            passReqToCallback: true
         },
-    async (email,password,done)=>{
+    async (req,email,password,done)=>{
         try{
-            const user = await User.create({email,password});
+            const username = req.body.username;
+            const user = await User.create({username,email,password});
             return done(null,user);
         }
         catch(error){

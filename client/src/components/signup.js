@@ -25,6 +25,15 @@ const email = value =>{
         );
     }
 };
+const vusername = value => {
+    if (value.length < 3 || value.length > 20) {
+      return (
+        <div className="alert alert-danger" role="alert">
+          The username must be between 3 and 20 characters.
+        </div>
+      );
+    }
+  };
 
 const vpassword = value =>{
     if(value.length< 6 || value.length>20){
@@ -41,9 +50,11 @@ export default class SignUp extends Component{
         super(props);
         this.handleSignUp = this.handleSignUp.bind(this);
         this.onChangeEmail = this.onChangeEmail.bind(this);
+        this.onChangeUsername = this.onChangeUsername.bind(this);
         this.onChangePassword  = this.onChangePassword.bind(this);
         this.state ={
             email:"",
+            username:"",
             password:"",
             successful:false,
             message:""
@@ -52,6 +63,11 @@ export default class SignUp extends Component{
     onChangeEmail(e){
         this.setState({
             email:e.target.value
+        });
+    }
+    onChangeUsername(e){
+        this.setState({
+            username:e.target.value
         });
     }
     onChangePassword(e){
@@ -68,7 +84,7 @@ export default class SignUp extends Component{
         this.form.validateAll();
 
         if(this.checkBtn.context._errors.length === 0){
-            AuthService.register(this.state.email,this.state.password).then(
+            AuthService.register(this.state.username,this.state.email,this.state.password).then(
                 (resp)=>{
                     this.setState({
                         message:resp.data.message,
@@ -103,6 +119,12 @@ export default class SignUp extends Component{
           <Form onSubmit={this.handleSignUp} ref={c => {this.form = c;}}>
               {!this.state.successful &&(
                   <div>
+                <div className="form-group">
+                  <label htmlFor="username">Username</label>
+                  <Input type="text" className="form-control" name="username"
+                       value= {this.state.username} onChange={this.onChangeUsername}
+                       validations = {[required,vusername]}/>
+              </div>
                 <div className="form-group">
                   <label htmlFor="email">Email</label>
                   <Input type="text" className="form-control" name="email"

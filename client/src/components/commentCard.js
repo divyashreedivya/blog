@@ -53,7 +53,7 @@ class CommentCard extends Component{
         const datadel = {
             title:this.state.comment.title,
             content:this.state.comment.content,
-            author:this.state.comment.author
+            author:this.state.comment.author._id
         };
         // console.dir(datadel);
         axios.delete(`http://localhost:8082/api/posts/${this.state.comment.post}/comments/${id}`
@@ -74,9 +74,10 @@ class CommentCard extends Component{
             <div className="card-comment card-container">
             <div className="desc">
                 <h3>{this.state.comment.title}</h3>
-                <h5>{this.state.comment.author}</h5>
                 <p>{this.state.comment.content}</p>
-                <p>{this.state.comment.createdAt.slice(0,10)}</p>
+                <br></br>
+                <p>By {this.state.comment.author.username} on {this.state.comment.createdAt.slice(0,10)}</p>
+                
             </div>
             <div className="row">
                 <div className="col-md-1">

@@ -45,5 +45,13 @@ h1{
 /*Comments*/
 .card-comment{
   padding: 2%;
+  margin:1%;
   background: linear-gradient(45deg, #254e40,#26624d );
+}
+.card-com{
+  color:white;
+  text-align: center;
+}
+.card-com-link{
+  color:rgb(204, 246, 237);
 }

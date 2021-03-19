@@ -14,6 +14,7 @@ router.get('/', (req,res)=>{
 
 router.get('/:id',(req,res)=>{
     Post.findById(req.params.id)
+    .populate("author","-password")
     .then(post => res.json(post))
     .catch(err => res.status(404).json({nopostfound: 'No post found'}));
 });
