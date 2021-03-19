@@ -12,10 +12,16 @@ class UpdatePost extends Component{
             title:'',
             content:'',
             author:'',
+            canedit:false
         };
     }
 
     componentDidMount(){
+        if(AuthService.getUser()){
+            this.setState({
+                canedit:true
+            });
+        }
         axios.get('http://localhost:8082/api/posts/'+this.props.match.params.id)
         .then(res=>{
             this.setState({
@@ -46,6 +52,7 @@ class UpdatePost extends Component{
             this.props.history.push('/show-post/'+this.props.match.params.id);
         })
         .catch(err=>{
+            //console.log(err);
             console.log("Error in updatePost");
         })
 };
@@ -53,14 +60,16 @@ class UpdatePost extends Component{
      render(){
          return(
              <div className="updatePost">
-                 <div className="container">
+                 {this.state.canedit &&(
+                    <div className="container">
                      <div className="row">
                          <div className="col-md-8 m-auto">
                              <br/>
-                             <Link to="/" className="btn btn-outline-warning float-left">
-                                 Posts
+                             <Link to={'/show-post/'+this.props.match.params.id} className="btn btn-outline-info float-left">
+                                 Back to Post
                              </Link>
                          </div>
+                         
                          <div className="col-md-8 m-auto">
                              <h1 className="display-4 text-center">Edit Post</h1>
                              <p className="lead text-center">Update post content</p>
@@ -82,7 +91,7 @@ class UpdatePost extends Component{
                                     <textarea 
                                     type="text" 
                                     placeholder="Content" 
-                                    name="content"
+                                    name="content" rows="10"
                                     className='form-control'
                                     value={this.state.content}
                                     onChange = {this.onChange}></textarea>
@@ -98,10 +107,19 @@ class UpdatePost extends Component{
                                     onChange = {this.onChange}/>
                                 </div> */}
                                 <br></br>
-                                <input type="submit" className="btn btn-outline-warning btn-block mt-4"/>
+                                <input type="submit" className="btn btn-success btn-block mt-4"/>
                             </form>
                      </div>
                  </div>
+                 )}
+                 {!this.state.canedit &&(
+                    <div className="container">
+                        <div className="card-req card card-container">
+                            <h2> <Link to="/login">Please Log In to edit Post</Link></h2>
+                            <h5><Link to ={'/show-post/'+this.props.match.params.id}>Go back</Link></h5>
+                        </div>
+                    </div>
+                 )}
              </div>
          )
      }

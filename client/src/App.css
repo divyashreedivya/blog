@@ -1,38 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Kalam&display=swap');
+
 .App {
+  background-color: #1a4b3a;
+  min-height: 110vh;
+  height:110%;
+  color:white;
+  font-family: 'Kalam', cursive;
+  font-size: 110%;
+
+}
+h1{
   text-align: center;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/*Sign Up and Log In*/
+.card{
+  padding: 5%;
+  background-color: #45a384;
+  box-shadow: 5px 5px 5px #1e3b31;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.acnt{
   color: white;
 }
-
-.App-link {
-  color: #61dafb;
+/* end*/
+/*Posts*/
+.post-card{
+  border:2px solid #45a384;
+  border-radius: 5px;
+  padding: 1%;
+  margin: 1%;
+  background: linear-gradient(180deg,#21614b,#1e3b31);
+}
+.post-card:hover{
+  background: linear-gradient(180deg,#1d5541,#1b352b);
+}
+.post-link{
+  color: white;
+}
+.card-req{
+  padding: 5%;
+  height:75vh;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/*end*/
+/*Comments*/
+.card-comment{
+  padding: 2%;
+  background: linear-gradient(45deg, #254e40,#26624d );
 }

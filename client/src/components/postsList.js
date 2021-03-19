@@ -16,7 +16,7 @@ class PostList extends Component{
         axios.get('http://localhost:8082/api/posts')
         .then(res=>{
             this.setState({
-                posts: res.data
+                posts: res.data,
             })
         })
         .catch(err=>{
@@ -45,7 +45,8 @@ class PostList extends Component{
                             <h1 className="display-4 text-center">Posts...</h1>
                         </div>
                         <div className="col-md-11">
-                            <Link to="/create-post" className="btn btn-outline-warning float-right">
+                       
+                            <Link to="/create-post" className="btn btn-outline-info float-right">
                                 + Add new post
                             </Link>
                             <br />

@@ -11,13 +11,18 @@ class CreateComment extends Component{
         this.state={
             title:'',
             content:'',
-            author:''
+            author:'',
+            cancreate:false
         };
     }
     componentDidMount(){
-        this.setState({
-            author: AuthService.getCurrentUser()
-        });
+        if(AuthService.getUser()){
+            this.setState({
+                author: AuthService.getCurrentUser(),
+                cancreate:true
+            });
+        }
+
     }
     onChange = e =>{
         this.setState({[e.target.name]:e.target.value});
@@ -45,12 +50,13 @@ class CreateComment extends Component{
     render(){
         return(
             <div className="CreateComment">
-                <div className="container">
+                {this.state.cancreate &&(
+                    <div className="container">
                     <div className="row">
                         <div className="col-md-8 m-auto">
                             <br/>
                             <Link to={`/show-post/${this.props.match.params.id}/show-comments`} 
-                            className="btn btn-outline-warning float-left">
+                            className="btn btn-outline-info float-left">
                                 Go back
                             </Link>
                         </div>
@@ -66,7 +72,7 @@ class CreateComment extends Component{
                                    value={this.state.title}
                                    onChange={this.onChange}/>
                                 </div>
-                                <br/><br/>
+                                
                                 <div className="form-group">
                                  <input 
                                    type="text"
@@ -76,7 +82,7 @@ class CreateComment extends Component{
                                    value={this.state.content}
                                    onChange={this.onChange}/>  
                                 </div>
-                                <br/><br/>     
+                                   
                                 {/* <div className="form-group">
                                  <input 
                                    type="text"
@@ -87,11 +93,23 @@ class CreateComment extends Component{
                                    onChange={this.onChange}/>
                                 </div> */}
                                 {/* <br/><br/> */}
-                                <input type="submit"  className="btn btn-outline-warning btn-block mt-4"/>
+                                <input type="submit"  className="btn btn-success btn-block mt-4"/>
+                                <br/>
                             </form>
                         </div>
                     </div>
                 </div>
+                )}
+                {!this.state.cancreate &&(
+                    <div className="container">
+                        <div className="card card-container">
+                        <h2> <Link to="/login">Please Log In to add comment</Link></h2>
+                    <h5><Link to ={`/show-post/${this.props.match.params.id}/show-comments`}>
+                        Go back</Link></h5>
+                    </div>
+                    </div>
+                )}
+                
             </div>
         )
     }

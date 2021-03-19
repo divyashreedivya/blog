@@ -4,6 +4,7 @@ import Input from 'react-validation/build/input';
 import CheckButton from 'react-validation/build/button';
 import {isEmail} from 'validator';
 import AuthService from '../auth/service';
+import {Link} from 'react-router-dom';
 
 const required = value =>{
     if(!value){
@@ -89,13 +90,16 @@ export default class SignUp extends Component{
     }
     render(){
         return(
+            <div className="container">
+                <h1>Sign Up</h1>
+                <br></br>
             <div className="col-md-12">
                 <div className="card card-container">
-                <img
+                {/* <img
                     src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
                     alt="profile-img"
                     className="profile-img-card"
-          />
+          /> */}
           <Form onSubmit={this.handleSignUp} ref={c => {this.form = c;}}>
               {!this.state.successful &&(
                   <div>
@@ -127,10 +131,11 @@ export default class SignUp extends Component{
                 </div>
               </div>
             )}
-            <CheckButton stype={{display:"none"}} ref={c =>{this.checkBtn=c;}}/>
+            <Link to="/login" className="acnt"><p>Already have an account?</p></Link>
+            <CheckButton style={{display:"none"}} ref={c =>{this.checkBtn=c;}}/>
           </Form>
                 </div>
-            </div>
+            </div></div>
         );
     }  
 }

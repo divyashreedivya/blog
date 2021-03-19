@@ -33,7 +33,7 @@ class CommentsList extends Component{
         }
         else{
             commentlist = comments.map((comment,k)=>
-                <CommentCard comment={comment} key={k}/>
+                <CommentCard history={this.props.history} comment={comment} key={k}/>
             );
         }
         return(
@@ -41,7 +41,8 @@ class CommentsList extends Component{
                 <div className="container">
                     <div className="row">
                         <div className="col-md-11">
-                            <Link to={`/show-post/${this.props.match.params.id}/add-comment`} className="btn btn-outline-warning float-right">
+                            <Link to={`/show-post/${this.props.match.params.id}/add-comment`} 
+                            className="btn btn-outline-info float-right">
                                 + Add a comment
                             </Link>
                     {/* <Link to={`/show-post/${this.props._id}/add-comment`} className="btn btn-outline-warning float-right">

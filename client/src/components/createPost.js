@@ -12,13 +12,19 @@ class CreatePost extends Component{
         this.state = {
             title:'',
             content:'',
-            author:AuthService.getCurrentUser(),
+            // author:AuthService.getCurrentUser(),
+            author:'',
+            cancreate:false
         };
     }
     componentDidMount(){
-        this.setState({
-            author: AuthService.getCurrentUser()
-        });
+        if(AuthService.getUser()){
+            this.setState({
+                cancreate:true,
+                author: AuthService.getCurrentUser()
+            });         
+        }
+
         //console.log("getuser:"+AuthService.getCurrentUser());
         console.log("author:"+ this.state.author);
     }
@@ -48,11 +54,12 @@ class CreatePost extends Component{
     render(){
         return(
             <div className="CreatePost">
-                <div className="container">
+                {this.state.cancreate &&(
+                    <div className="container">
                     <div className="row">
                         <div className="col-md-8 m-auto">
                             <br></br>
-                            <Link to="/" className="btn btn-outline-warning float-left">
+                            <Link to="/" className="btn btn-outline-info float-left">
                                 Show Posts
                             </Link>
                         </div>
@@ -76,7 +83,7 @@ class CreatePost extends Component{
                                     <textarea 
                                     type="text" 
                                     placeholder="Content" 
-                                    name="content"
+                                    name="content" rows="10"
                                     className='form-control'
                                     value={this.state.content}
                                    onChange = {this.onChange}></textarea>
@@ -92,11 +99,20 @@ class CreatePost extends Component{
                                     onChange = {this.onChange}/>
                                 </div> */}
                                 <br></br>
-                                <input type="submit" className="btn btn-outline-warning btn-block mt-4"/>
+                                <input type="submit" className="btn btn-success btn-block mt-4"/>
                             </form>
                         </div>
                     </div>
                 </div>
+                )}
+                {!this.state.cancreate &&(
+                    <div className="container">
+                    <div className="card-req card card-container">
+                    <h2> <Link to="/login">Please Log In to Create Post</Link></h2>
+                    <h5><Link to ="/">Go back</Link></h5>
+                    </div>
+                    </div>
+                )}
             </div>
         )
     }

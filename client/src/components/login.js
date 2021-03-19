@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
 import CheckButton from 'react-validation/build/button';
+import {Link} from 'react-router-dom';
 
 import AuthService from '../auth/service';
 
@@ -73,13 +74,15 @@ export default class Login extends Component{
     }
     render(){
         return(
+            <div className="container">
+             <h1>Log In</h1>   
             <div className="col-md-12">
                 <div className="card card-container">
-                <img
+                {/* <img
                     src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
                     alt="profile-img"
                     className="profile-img-card"
-          />
+          /> */}
           <Form onSubmit={this.handleLogin} ref={c => {this.form = c;}}>
               <div className="form-group">
                   <label htmlFor="email">Email</label>
@@ -108,10 +111,12 @@ export default class Login extends Component{
                 </div>
               </div>
             )}
-            <CheckButton stype={{display:"none"}} ref={c =>{this.checkBtn=c;}}/>
+            <Link to="/signup" className="acnt"><p>No Account?</p></Link>
+            
+            <CheckButton style={{display:"none"}} ref={c =>{this.checkBtn=c;}}/>
           </Form>
                 </div>
-            </div>
+            </div></div>
         );
     }
 }
