@@ -10,13 +10,13 @@ class PostDetails extends Component{
     constructor(props){
         super(props);
         this.state = {
-            // post: {},
             id:'',
             title:'',
             content:'',
             author:'',
             author_name:'',
-            isuser:false
+            isuser:false,
+            time:''
         };
     }
 
@@ -34,7 +34,8 @@ class PostDetails extends Component{
                 title:res.data.title,
                 content:res.data.content,
                 author:res.data.author._id,
-                author_name:res.data.author.username
+                author_name:res.data.author.username,
+                time:res.data.createdAt
             })
         })
         .catch(err =>{
@@ -80,11 +81,11 @@ class PostDetails extends Component{
             <h5>Author: {this.state.author_name}</h5>
             <br/><br/>
             <p>{this.state.content}</p>
+            <p className="time">Posted on {this.state.time.slice(0,10)}</p>
         </div>
         return(
              <div className="postDetails">
                  <div className="container">
-                 
                      <div className="row">
                      <br/><br/>
                          <div className="col-md-6 ">
@@ -125,7 +126,7 @@ class PostDetails extends Component{
                      <div>
                          {postItem}
                      </div>
-                     <b/><br/>
+                     
 
                      <div className="row">
                         <div className="col-md-12">

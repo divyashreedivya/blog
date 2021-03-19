@@ -39,8 +39,11 @@ h1{
 .card-req{
   padding: 5%;
   height:75vh;
+  text-align: center;
 }
-
+.time{
+  color: #9bddc7;
+}
 /*end*/
 /*Comments*/
 .card-comment{
@@ -52,6 +55,6 @@ h1{
   color:white;
   text-align: center;
 }
-.card-com-link{
+.card-link{
   color:rgb(204, 246, 237);
 }

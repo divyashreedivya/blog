@@ -97,15 +97,6 @@ class UpdatePost extends Component{
                                     onChange = {this.onChange}></textarea>
                                 </div>
                                 <br></br>
-                                {/* <div className='form-group'>
-                                    <input 
-                                    type="text" 
-                                    placeholder="Author" 
-                                    name="author"
-                                    className='form-control'
-                                    value={this.state.author}
-                                    onChange = {this.onChange}/>
-                                </div> */}
                                 <br></br>
                                 <input type="submit" className="btn btn-success btn-block mt-4"/>
                             </form>
@@ -115,8 +106,9 @@ class UpdatePost extends Component{
                  {!this.state.canedit &&(
                     <div className="container">
                         <div className="card-req card card-container">
-                            <h2> <Link to="/login">Please Log In to edit Post</Link></h2>
-                            <h5><Link to ={'/show-post/'+this.props.match.params.id}>Go back</Link></h5>
+                            <h2> <Link to="/login" className="card-link">Please Log In to edit Post</Link></h2>
+                            <h5><Link to ={'/show-post/'+this.props.match.params.id}
+                            className="card-link">Go back</Link></h5>
                         </div>
                     </div>
                  )}

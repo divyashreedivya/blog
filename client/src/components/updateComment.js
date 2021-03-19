@@ -100,9 +100,9 @@ class UpdateComment extends Component{
                 {!this.state.cancreate &&(
                     <div className="container">
                     <div className="card-com card card-container">
-                    <h2> <Link to="/login" className="card-com-link">Please Log In to edit comment</Link></h2>
+                    <h2> <Link to="/login" className="card-link">Please Log In to edit comment</Link></h2>
                     <h5><Link to ={`/show-post/${this.props.match.params.id}/show-comments`}
-                    className="card-com-link">
+                    className="card-link">
                      Go back</Link></h5>
                     </div>
                     </div>

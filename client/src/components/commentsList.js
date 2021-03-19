@@ -45,10 +45,7 @@ class CommentsList extends Component{
                             className="btn btn-outline-info float-right">
                                 + Add a comment
                             </Link>
-                    {/* <Link to={`/show-post/${this.props._id}/add-comment`} className="btn btn-outline-warning float-right">
-                                + Add a comment
-                            </Link> */}
-                            <br/><br/>
+                            <br/>
                             <hr/>
                         </div>
                     </div>
