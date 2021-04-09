@@ -51,6 +51,7 @@ class UpdateComment extends Component{
             this.props.history.push(`/show-post/${this.props.match.params.id}/show-comments`);
         })
         .catch(err=>{
+            alert("Unauthorized to update comment!")
             console.log("Error in updateComment");
         });
     };

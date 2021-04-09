@@ -30,6 +30,7 @@ class CommentCard extends Component{
             this.props.history.push(`/show-post/${this.state.comment.post}/`);
         })
         .catch(err =>{
+            alert("Unauthorized to delete!");
             console.log("Error from commentcard_deleteClick");
             console.log(err);
         })

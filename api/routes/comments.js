@@ -39,29 +39,16 @@ router.get('/:id/comments/:commentId',(req,res)=>{
     .catch(err =>{ res.status(404).json({error:'No such comment found'})});
 });
 
-router.put('/:id/comments/:commentId',authenticate.verifyUser, (req,res)=>{
-    if(req.body.author  == req.user._id){
+router.put('/:id/comments/:commentId',authenticate.verifyUser, authenticate.canUpdateAndDelete, (req,res)=>{
         Comment.findByIdAndUpdate(req.params.commentId,req.body)
         .then(comment=> res.json({msg:'Updated comment successfully'}))
         .catch( err => res.status(400).json({error: 'Unable to update comment'}));
-    }
-    else{
-        res.status(400).json({error: 'Unable to update comment(wrong user)'});
-    }
-
 });
 
-router.delete('/:id/comments/:commentId',authenticate.verifyUser, (req,res)=>{
-    // console.dir(req.params.commentId);
-    //  req.body.post = req.params.id;
-    if(req.body.author === req.user._id){
+router.delete('/:id/comments/:commentId',authenticate.verifyUser, authenticate.canUpdateAndDelete, (req,res)=>{
         Comment.findByIdAndRemove(req.params.commentId,req.body)
         .then(comment => {res.json({msg:'Comment deleted successfully'})})
         .catch(err =>{ res.status(404).json({error:'No such comment found'})});
-    }
-    else{
-        res.status(400).json({error:'Unable to delete(Wrong user)'});
-    }
 });
 
 

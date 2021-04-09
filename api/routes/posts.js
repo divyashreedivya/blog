@@ -26,30 +26,20 @@ router.post('/',authenticate.verifyUser, (req,res)=>{
     .catch(err => res.sendStatus(400).json({error: 'Unable to add this post'}));
 });
 
-router.put('/:id',authenticate.verifyUser, (req,res)=>{
-        if(req.body.author === req.user._id){
+router.put('/:id',authenticate.verifyUser,  authenticate.canUpdateAndDelete, (req,res)=>{
         Post.findOneAndUpdate({_id:req.params.id},req.body)
         .then(post => {
                 res.json({msg:'Updated successfully!'});
         })
         .catch( err => {
             console.log("Unable to update");
-            res.status(400).json({error: 'Unable to update'})});}
-        else{
-                res.status(400).json({error: 'Unable to update(Wrong user)'});
-            }
+            res.status(400).json({error: 'Unable to update'})});
 });
 
-router.delete('/:id',authenticate.verifyUser, (req,res)=>{
-    if(req.body.author == req.user._id){
+router.delete('/:id',authenticate.verifyUser, authenticate.canUpdateAndDelete,(req,res)=>{
         Post.findByIdAndRemove(req.params.id,req.body)
         .then(post => res.json({msg:'Post deleted successfully'}))
         .catch(err => res.status(404).json({error: 'No such post'}));
-    }
-    else{
-        res.status(400).json({error: 'Unable to delete(Wrong user)'});
-    }
-
 });
 
 module.exports = router;

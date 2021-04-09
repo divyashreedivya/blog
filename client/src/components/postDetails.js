@@ -67,6 +67,7 @@ class PostDetails extends Component{
                 this.props.history.push("/");
             })
             .catch(err =>{
+                alert("Unauthorized to delete!");
                 console.log("Error from PostDetails_deleteClick");
             })
         }

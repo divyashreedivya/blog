@@ -53,6 +53,7 @@ class UpdatePost extends Component{
         })
         .catch(err=>{
             //console.log(err);
+            alert("Unauthorized to update post!");
             console.log("Error in updatePost");
         })
 };

@@ -67,7 +67,16 @@ passport.use(new JWTstrategy(
     }
 ));
 
-exports.verifyUser = passport.authenticate('jwt', {session:false});  
+exports.verifyUser = passport.authenticate('jwt', {session:false}); 
+
+exports.canUpdateAndDelete = (req,res,next)=>{
+    const curuser = req.user._id;
+    const author = req.body.author;
+    if(author!==curuser){
+        return res.status(400).json({error: 'You are not authorized!'});
+    }
+    next();
+}
 
 exports.verifyToken = (token)=>{
     jwt.verify(token,'TOP_SECRET',(err,decoded)=>{
